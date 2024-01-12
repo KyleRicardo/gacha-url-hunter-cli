@@ -1,5 +1,5 @@
-use std::error::Error;
 use serde::Deserialize;
+use std::error::Error;
 use url::Url;
 
 pub trait UrlValidator {
@@ -17,5 +17,5 @@ struct GachaResponse {
 pub fn validate(url: &str) -> Result<bool, Box<dyn Error>> {
     let url = Url::parse(url)?;
     let response: GachaResponse = reqwest::blocking::get(url)?.json()?;
-    return Ok(response.retcode == 0)
+    Ok(response.retcode == 0)
 }

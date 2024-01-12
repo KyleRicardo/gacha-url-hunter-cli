@@ -14,17 +14,19 @@ fn main() -> Result<(), Box<dyn Error>> {
     let region = Select::new("选择区服 Select region:", GameRegion::vec()).prompt()?;
     let mut sp = Spinner::new(Spinners::Dots, "正在获取抽卡链接...".into());
     let url = hunt_gacha_url(game, region);
-    sp.stop();
-    println!();
     match url {
         Ok(url) => {
+            sp.stop_and_persist("\x1b[32m✔\x1b[0m", "获取完成".into());
             println!("您的抽卡分析链接为：");
             println!("{}", url);
             let mut clipboard = Clipboard::new().unwrap();
             clipboard.set_text(url)?;
             println!("抽卡链接已复制到剪贴板");
         }
-        Err(e) => eprintln!("{}", e)
+        Err(e) => {
+            sp.stop_and_persist("\x1b[31m✖\x1b[0m", "获取失败".into());
+            eprintln!("{}", e)
+        }
     }
 
     util::pause();

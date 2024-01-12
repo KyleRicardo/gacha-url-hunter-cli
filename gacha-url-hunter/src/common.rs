@@ -1,6 +1,6 @@
-use std::fmt::{Display, Formatter};
 use crate::common::GameRegion::{CN, OS};
 use crate::common::MihoyoGame::{GenshinImpact, HonkaiStarRail, ZenlessZoneZero};
+use std::fmt::{Display, Formatter};
 
 pub enum MihoyoGame {
     GenshinImpact,
@@ -17,9 +17,9 @@ impl MihoyoGame {
 impl Display for MihoyoGame {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            MihoyoGame::GenshinImpact => write!(f, "原神 Genshin Impact"),
-            MihoyoGame::HonkaiStarRail => write!(f, "崩坏：星穹铁道 Honkai: Star Rail"),
-            MihoyoGame::ZenlessZoneZero => write!(f, "绝区零: Zenless Zone Zero"),
+            GenshinImpact => write!(f, "原神 Genshin Impact"),
+            HonkaiStarRail => write!(f, "崩坏：星穹铁道 Honkai: Star Rail"),
+            ZenlessZoneZero => write!(f, "绝区零: Zenless Zone Zero"),
         }
     }
 }
@@ -38,8 +38,8 @@ impl GameRegion {
 impl Display for GameRegion {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            GameRegion::CN => write!(f, "国服（包含官服和B服） China"),
-            GameRegion::OS => write!(f, "外服 Overseas"),
+            CN => write!(f, "国服（包含官服和B服） China"),
+            OS => write!(f, "外服 Overseas"),
         }
     }
 }
