@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::env;
 
 use lazy_static::lazy_static;
@@ -20,13 +21,20 @@ pub fn expand_env_vars(s:&str) -> Result<String, Error>  {
 }
 
 
-pub fn extract_authkey(url: String) -> Result<String, Error> {
+pub fn extract_authkey(url: String, decode: bool) -> Result<String, Error> {
     let url = Url::parse(&url)?;
-    let pairs = url.query_pairs();
-    for (k, v) in pairs {
-        if k == "authkey" {
-            return Ok(v.to_string())
+    let query_map: HashMap<_, _> = url.query_pairs().into_owned().collect();
+    let authkey = query_map.get("authkey");
+    match authkey {
+        Some(authkey) => {
+            if decode {
+                Ok(authkey.clone())
+            } else {
+                Ok(urlencoding::encode(authkey).into_owned())
+            }
+        }
+        None => {
+            Err(Error::AuthkeyNotFound)
         }
     }
-    return Err(Error::AuthkeyNotFound)
 }

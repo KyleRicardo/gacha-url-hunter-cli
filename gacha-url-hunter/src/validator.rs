@@ -11,7 +11,6 @@ pub trait UrlValidator {
 #[derive(Deserialize)]
 struct GachaResponse {
     retcode: i32,
-    message: String,
 }
 
 pub fn validate(url: &str) -> Result<bool, Box<dyn Error>> {
