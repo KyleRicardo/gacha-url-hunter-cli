@@ -7,16 +7,16 @@ use crate::common::{GameRegion, MihoyoGame};
 use crate::error::Error;
 use crate::utils::expand_env_vars;
 
-const GENSHIN_LOG_LOCATION_CN: &str = r"%userprofile%\AppData\LocalLow\miHoYo\原神\output_log.txt";
-const GENSHIN_LOG_LOCATION_OS: &str = r"%userprofile%\AppData\LocalLow\miHoYo\Genshin Impact\output_log.txt";
-const STARRAIL_LOG_LOCATION_CN: &str = r"%userprofile%\AppData\LocalLow\miHoYo\崩坏：星穹铁道\Player.log";
-const STARRAIL_LOG_LOCATION_OS: &str = r"%userprofile%\AppData\LocalLow\Cognosphere\Star Rail\Player.log";
-const ZZZ_LOG_LOCATION_CN: &str = r"%userprofile%\AppData\LocalLow\miHoYo\绝区零\output_log.txt";
-const ZZZ_LOG_LOCATION_OS: &str = r"%userprofile%\AppData\LocalLow\miHoYo\Zenless Zone Zero\output_log.txt";
+const GENSHIN_LOG_LOCATION_CN: &str = r"%USERPROFILE%\AppData\LocalLow\miHoYo\原神\output_log.txt";
+const GENSHIN_LOG_LOCATION_OS: &str = r"%USERPROFILE%\AppData\LocalLow\miHoYo\Genshin Impact\output_log.txt";
+const STARRAIL_LOG_LOCATION_CN: &str = r"%USERPROFILE%\AppData\LocalLow\miHoYo\崩坏：星穹铁道\Player.log";
+const STARRAIL_LOG_LOCATION_OS: &str = r"%USERPROFILE%\AppData\LocalLow\Cognosphere\Star Rail\Player.log";
+const ZZZ_LOG_LOCATION_CN: &str = r"%USERPROFILE%\AppData\LocalLow\miHoYo\绝区零\Player.log";
+const ZZZ_LOG_LOCATION_OS: &str = r"%USERPROFILE%\AppData\LocalLow\miHoYo\ZenlessZoneZero\Player.log";
 
 const GENSHIN_LOG_SEARCH_PATTERN: &str = r"(.:/.+(GenshinImpact_Data|YuanShen_Data))";
 const STARRAIL_LOG_SEARCH_PATTERN: &str = r"Loading player data from (.:/.+)/data\.unity3d";
-const ZZZ_LOG_SEARCH_PATTERN: &str = "";
+const ZZZ_LOG_SEARCH_PATTERN: &str = r"Discovering subsystems at path (.:/.+)/UnitySubsystems";
 
 fn get_log_location(game: &MihoyoGame, region: &GameRegion) -> &'static str {
     return match game {
